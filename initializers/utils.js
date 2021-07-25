@@ -1,4 +1,4 @@
-const { customLogger: logger } = require('./logger');
+const logger = require('./logger');
 
 const createMongooseConnection = connectionString => {
 	const mongoose = require('mongoose');

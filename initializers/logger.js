@@ -10,6 +10,4 @@ const DEFAULT_OPTIONS = {
 
 const logger = bunyan.createLogger({ ...DEFAULT_OPTIONS, src: true });
 
-module.exports = {
-	logger,
-};
+module.exports = logger;

@@ -1,10 +1,8 @@
 const express = require('express');
 const { router, setQueues, BullAdapter } = require('bull-board')
 
-const { log } = require('../initializers');
+const { logger } = require('../initializers');
 
-
-const logger = log.customLogger;
 
 // Needs to be after other initializers for dotenv loading
 const arenaAuth = require('../initializers/arena-auth');

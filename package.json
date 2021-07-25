@@ -1,6 +1,6 @@
 {
   "name": "api-toolkit",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "A collection of various utilities for REST APIs.",
   "scripts": {
     "test": "jest"

@@ -2,7 +2,7 @@ const hash = require('object-hash');
 
 const connections = {};
 let sequelize;
-const sequelizeConnection = (connectionString, options) => {
+const sequelizeConnection = (connectionString, options = {}) => {
 	const key = connectionString + hash(options);
 	if (!connections[key]) {
 		sequelize = require('sequelize');

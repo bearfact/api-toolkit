@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 
 const asyncWrap = require('./async.middleware');
+const { UnauthorizedError } = require('../initializers/errors')
 
 module.exports = (secret = null, algorithm = 'HS256') => {
 	return asyncWrap(async (req, res, next) => {
@@ -11,7 +12,11 @@ module.exports = (secret = null, algorithm = 'HS256') => {
 			if (!secret) {
 				decoded = jwt.decode(token);
 			} else {
-				decoded = jwt.verify(token, secret, { algorithms: [algorithm] })
+				try {
+					decoded = jwt.verify(token, secret, { algorithms: [algorithm] })
+				} catch (err) {
+					throw new UnauthorizedError(err);
+				}
 			}
 			req.claims = decoded;
 		}

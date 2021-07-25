@@ -5,11 +5,11 @@ AWS.config.update({ region: 'us-west-2' });
 const SNS = new AWS.SNS({ apiVersion: '2010-03-31', endpoint: process.env.SNS_ENDPOINT });
 const SQS = new AWS.SQS({ apiVersion: '2012-11-05', endpoint: process.env.SQS_ENDPOINT });
 
-const { log } = require('../initializers');
+const { logger } = require('../initializers');
 
 const handlers = {};
 
-const baseLogger = log.createLogger({ group: 'BaseConsumer' });
+const baseLogger = logger;
 
 class BaseConsumer {
 	constructor() {

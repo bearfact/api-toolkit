@@ -4,12 +4,12 @@ const AWS = require('aws-sdk');
 AWS.config.update({ region: 'us-west-2' });
 const SNS = new AWS.SNS({ apiVersion: '2010-03-31', endpoint: process.env.SNS_ENDPOINT });
 
-const { joi: Joi, log } = require('../initializers');
+const { joi: Joi, logger } = require('../initializers');
 
 class BasePublisher {
 	constructor(topic, schema) {
 		if (!topic) throw new Error('Topic name is required');
-		this.logger = log.createLogger({ group: this.constructor.name, publisherName: this.constructor.name });
+		this.logger = logger;
 		this.ready = false;
 		this.schema = schema;
 		this.topic = process.env.APP_CLUSTER ? `${process.env.APP_CLUSTER}-${topic}` : `local-${topic}`;

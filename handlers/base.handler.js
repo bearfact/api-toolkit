@@ -1,8 +1,8 @@
-const { log } = require('../initializers');
+const { logger } = require('../initializers');
 
 class BaseHandler {
   constructor(topic, job) {
-  	this.logger = log.createLogger({ group: this.constructor.name, handlerName: this.constructor.name });
+  	this.logger = logger;
     this.job = job;
     this.topic = process.env.APP_CLUSTER ? `${process.env.APP_CLUSTER}-${topic}` : `local-${topic}`;
   }

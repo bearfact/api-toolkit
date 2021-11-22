@@ -1,22 +1,28 @@
 {
   "name": "api-toolkit",
-  "version": "1.1.2",
+  "version": "2.0.0",
   "description": "A collection of various utilities for REST APIs.",
   "scripts": {
     "test": "jest"
+  },
+  "prettier": {
+    "trailingComma": "all",
+    "tabWidth": 2,
+    "semi": true,
+    "singleQuote": true
   },
   "author": "Dig Days LLC",
   "license": "ISC",
   "dependencies": {
     "aws-sdk": "2.246.1",
     "basic-auth": "2.0.1",
-    "boom": "7.3.0",
+    "boom": "^7.3.0",
     "bull": "^3.22.5",
     "bull-board": "1.5.1",
     "bunyan": "1.8.12",
     "dotenv": "6.1.0",
     "express": "4.16.3",
-    "joi": "13.7.0",
+    "joi": "^17.4.2",
     "jsonwebtoken": "8.3.0",
     "latinize": "^0.4.1",
     "lodash": "^4.17.15",
@@ -30,7 +36,10 @@
     "eslint-config-airbnb-base": "14.0.0",
     "eslint-plugin-import": "2.18.2",
     "jest": "24.8.0",
-    "mongoose": "4.13.17"
+    "knex": "^0.95.14",
+    "mongoose": "^6.0.8",
+    "pg": "^8.7.1",
+    "sequelize": "^6.12.0-alpha.1"
   },
   "jest": {
     "setupFilesAfterEnv": [

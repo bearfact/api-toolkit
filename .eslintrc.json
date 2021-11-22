@@ -1,6 +1,7 @@
 {
 	"extends": "airbnb-base",
 	"env": {
+		"jest": true,
 		"node": true
 	},
 	"rules": {
@@ -23,6 +24,7 @@
 		"no-use-before-define": "off",
 		"object-curly-newline": "off",
 		"object-shorthand": "off",
+		"operator-linebreak": "off",
 		"prefer-destructuring": "off",
 		"radix": ["error", "as-needed"],
 		"semi": "off"

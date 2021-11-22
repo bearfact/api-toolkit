@@ -1,10 +1,40 @@
 const AWS = require('aws-sdk');
 
-const mockCreateTopic = jest.fn(() => { return { promise: () => { return { TopicArn: 'fake' } } } } );
-const mockSubscribe = jest.fn(() => { return { promise: () => { return {} } } } );
-const mockCreatQueue = jest.fn(() => { return { promise: () => { return { QueueUrl: 'fake' } } } } );
-const mockGetAttrs = jest.fn(() => { return { promise: () => { return { Attributes: { QueueArn: 'fake' } } } } } );
-const mockSetAttrs = jest.fn(() =>{ return { promise: () => { return {} } } } );
+const mockCreateTopic = jest.fn(() => {
+	return {
+		promise: () => {
+			return { TopicArn: 'fake' };
+		},
+	};
+});
+const mockSubscribe = jest.fn(() => {
+	return {
+		promise: () => {
+			return {};
+		},
+	};
+});
+const mockCreatQueue = jest.fn(() => {
+	return {
+		promise: () => {
+			return { QueueUrl: 'fake' };
+		},
+	};
+});
+const mockGetAttrs = jest.fn(() => {
+	return {
+		promise: () => {
+			return { Attributes: { QueueArn: 'fake' } };
+		},
+	};
+});
+const mockSetAttrs = jest.fn(() => {
+	return {
+		promise: () => {
+			return {};
+		},
+	};
+});
 
 AWS.SQS = jest.fn().mockImplementation(() => ({
 	createQueue: mockCreatQueue,
@@ -14,43 +44,41 @@ AWS.SQS = jest.fn().mockImplementation(() => ({
 
 AWS.SNS = jest.fn().mockImplementation(() => ({
 	createTopic: mockCreateTopic,
-	subscribe: mockSubscribe
+	subscribe: mockSubscribe,
 }));
 
 function DummyHandlerA() {
-  this.topic = 'a';
-  this.getTopic = () => 'a';
+	this.topic = 'a';
+	this.getTopic = () => 'a';
 }
 
 function DummyHandlerB() {
-  this.topic = 'b';
-  this.getTopic = () => 'b';
+	this.topic = 'b';
+	this.getTopic = () => 'b';
 }
 
 function DummyHandlerC() {
-  this.topic = 'a';
-  this.getTopic = () => 'a';
+	this.topic = 'a';
+	this.getTopic = () => 'a';
 }
 
 describe('BaseConsumer', () => {
-
 	let consumer = null;
 	beforeAll(() => {
-		consumer = require('../../handlers/consumer')
-	})
-	
+		consumer = require('../../handlers/consumer');
+	});
 
 	test('should register non duplicate handler', () => {
 		expect.assertions(1);
-		consumer.registerHandler('test', DummyHandlerA)
-		const response = consumer.registerHandler('testb', DummyHandlerB)
+		consumer.registerHandler('test', DummyHandlerA);
+		const response = consumer.registerHandler('testb', DummyHandlerB);
 		expect(typeof response).toBe('object');
 	});
 
 	test('should not register a duplicate handler', () => {
 		expect.assertions(1);
 		try {
-		consumer.registerHandler('test', DummyHandlerA)
+			consumer.registerHandler('test', DummyHandlerA);
 		} catch (err) {
 			expect(err.toString()).toBe('Error: would overwrite existing model');
 		}
@@ -59,14 +87,15 @@ describe('BaseConsumer', () => {
 	test('should register not register a duplicate topic', () => {
 		expect.assertions(1);
 		try {
-		consumer.registerHandler('testc', DummyHandlerC)
+			consumer.registerHandler('testc', DummyHandlerC);
 		} catch (err) {
-			expect(err.toString()).toBe('Error: Duplicate Topic Registration error: cannot register \"testc\", a producer is already registered to topic \"a\"');
+			expect(err.toString()).toBe(
+				'Error: Duplicate Topic Registration error: cannot register "testc", a producer is already registered to topic "a"',
+			);
 		}
 	});
 
 	test('connect should call all the AWS things', () => {
-		consumer.connect()
-	})	
-
-})
+		consumer.connect();
+	});
+});

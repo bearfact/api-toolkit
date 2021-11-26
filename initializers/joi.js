@@ -39,7 +39,12 @@ const zipCode = () => {
 };
 
 const validate = (toValidate, schema) => {
-	const { error, value } = schema.validate(toValidate);
+	const { error, value } = schema
+		.options({
+			abortEarly: false,
+			stripUnknown: { arrays: false, objects: true },
+		})
+		.validate(toValidate);
 	if (error) throw Boom.badRequest(error.details[0].message, error.details[0]);
 	return value;
 };

@@ -9,6 +9,8 @@ const httpErrorHandler = (err, _req, res, _next) => {
 			responseErr = Boom.badData('Request failed a unique validation check');
 		} else if (responseErr.name === 'SequelizeValidationError') {
 			responseErr = Boom.badData(responseErr.message);
+		} else if (responseErr.name === 'ValidationError') {
+			responseErr = Boom.badData(responseErr.message);
 		} else if (responseErr.name === 'FailedDependencyError') {
 			responseErr = Boom.failedDependency(responseErr.message);
 		} else if (responseErr.name === 'ResourceNotFoundError') {
